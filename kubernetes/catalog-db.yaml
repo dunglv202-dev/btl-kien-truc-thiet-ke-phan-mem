@@ -1,0 +1,39 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: catalog-db-deployment
+  labels:
+    app: catalog-db # to get service know which deployment to forward request to
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: catalog-db # pod with label app = catalog-db will be replicated
+  template:
+    metadata:
+      labels:
+        app: catalog-db # pods have different names but same label
+    spec:
+      containers:
+        - name: mysql
+          image: mysql:8.0.36
+          ports:
+            - containerPort: 3306
+          env:
+            - name: MYSQL_ROOT_PASSWORD
+              valueFrom:
+                secretKeyRef:
+                  name: catalog-db-secret
+                  key: catalog-db-password
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: catalog-db-service
+spec:
+  selector:
+    app: catalog-db
+  ports:
+    - protocol: TCP
+      port: 3306
+      targetPort: 3306
