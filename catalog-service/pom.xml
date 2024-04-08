@@ -12,11 +12,11 @@
     </parent>
 
     <groupId>org.example</groupId>
-    <artifactId>food-service</artifactId>
+    <artifactId>catalog-service</artifactId>
     <version>0.0.1-SNAPSHOT</version>
     <packaging>pom</packaging>
-    <name>food-service</name>
-    <description>Food Service in restaurant management microservice system</description>
+    <name>catalog-service</name>
+    <description>Catalog Service in restaurant management microservice system</description>
 
     <properties>
         <maven.compiler.source>17</maven.compiler.source>

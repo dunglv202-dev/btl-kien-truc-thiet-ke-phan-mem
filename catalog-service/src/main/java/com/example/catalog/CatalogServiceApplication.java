@@ -1,18 +1,15 @@
-package com.example.food;
+package com.example.catalog;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 
-import java.util.List;
-import java.util.stream.Stream;
-
 @SpringBootApplication
 @EnableDiscoveryClient
-public class FoodServiceApplication {
+public class CatalogServiceApplication {
 
 	public static void main(String[] args) {
-		SpringApplication.run(FoodServiceApplication.class, args);
+		SpringApplication.run(CatalogServiceApplication.class, args);
 	}
 
 }
