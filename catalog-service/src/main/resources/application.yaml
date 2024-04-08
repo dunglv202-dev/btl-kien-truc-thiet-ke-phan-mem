@@ -1,6 +1,15 @@
 spring:
   application:
-    name: food-service
+    name: catalog-service
+  datasource:
+    url: jdbc:mysql://${DB_HOST}:${DB_PORT}/${DB_NAME}
+    username: ${DB_USER}
+    password: ${DB_PASSWORD}
+  jpa:
+    show-sql: true
+    generate-ddl: true
+    hibernate:
+      ddl-auto: update
 server:
   port: 8081
 eureka:
