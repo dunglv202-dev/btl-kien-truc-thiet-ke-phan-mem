@@ -7,6 +7,7 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
 import vn.edu.ptit.kttk.catalog.constant.FoodType;
+import vn.edu.ptit.kttk.catalog.dto.UpdatedFood;
 
 import java.time.LocalDateTime;
 import java.util.Objects;
@@ -44,6 +45,14 @@ public class Food {
         image.setUrl(url);
         image.setFood(this);
         this.images.add(image);
+    }
+
+    public void merge(UpdatedFood updatedFood) {
+        this.name = updatedFood.getName();
+        this.preview = updatedFood.getPreview();
+        this.price = updatedFood.getPrice();
+        this.description = updatedFood.getDescription();
+        this.type = updatedFood.getType();
     }
 
     @Override

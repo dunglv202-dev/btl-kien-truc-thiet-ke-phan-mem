@@ -15,7 +15,7 @@ import java.util.Set;
 public class NewCombo {
     private String name;
     private String preview;
-    private List<MultipartFile> images;
+    private List<MultipartFile> images = new ArrayList<>();
     private Double price;
     private List<NewComboPart> parts;
 
