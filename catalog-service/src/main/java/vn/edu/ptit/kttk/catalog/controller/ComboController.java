@@ -1,12 +1,12 @@
 package vn.edu.ptit.kttk.catalog.controller;
 
 import lombok.RequiredArgsConstructor;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import vn.edu.ptit.kttk.catalog.dto.ComboDTO;
 import vn.edu.ptit.kttk.catalog.dto.NewCombo;
 import vn.edu.ptit.kttk.catalog.service.ComboService;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/v1/combos")
@@ -17,5 +17,10 @@ public class ComboController {
     @PostMapping
     public void addNewCombo(@ModelAttribute NewCombo newCombo) {
         comboService.addNewCombo(newCombo);
+    }
+
+    @GetMapping
+    public List<ComboDTO> getAllCombos() {
+        return comboService.getAllCombos();
     }
 }

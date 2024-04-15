@@ -5,6 +5,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.annotation.Validated;
+import vn.edu.ptit.kttk.catalog.dto.ComboDTO;
 import vn.edu.ptit.kttk.catalog.dto.NewCombo;
 import vn.edu.ptit.kttk.catalog.entity.Combo;
 import vn.edu.ptit.kttk.catalog.entity.ComboPart;
@@ -14,6 +15,7 @@ import vn.edu.ptit.kttk.catalog.repository.FoodRepository;
 import vn.edu.ptit.kttk.catalog.service.ComboService;
 import vn.edu.ptit.kttk.catalog.service.StorageService;
 
+import java.util.List;
 import java.util.Objects;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -55,5 +57,13 @@ public class ComboServiceImpl implements ComboService {
         });
 
         comboRepository.save(combo);
+    }
+
+    @Override
+    public List<ComboDTO> getAllCombos() {
+        return comboRepository.findAll()
+            .stream()
+            .map(ComboDTO::new)
+            .toList();
     }
 }

@@ -5,12 +5,14 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.annotation.Validated;
+import vn.edu.ptit.kttk.catalog.dto.FoodDTO;
 import vn.edu.ptit.kttk.catalog.dto.NewFood;
 import vn.edu.ptit.kttk.catalog.entity.Food;
 import vn.edu.ptit.kttk.catalog.repository.FoodRepository;
 import vn.edu.ptit.kttk.catalog.service.FoodService;
 import vn.edu.ptit.kttk.catalog.service.StorageService;
 
+import java.util.List;
 import java.util.Objects;
 
 @Service
@@ -36,5 +38,13 @@ public class FoodServiceImpl implements FoodService {
         });
 
         foodRepository.save(food);
+    }
+
+    @Override
+    public List<FoodDTO> getAllFoods() {
+        return foodRepository.findAll()
+            .stream()
+            .map(FoodDTO::new)
+            .toList();
     }
 }
