@@ -4,6 +4,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 import vn.edu.ptit.kttk.catalog.dto.ComboDTO;
 import vn.edu.ptit.kttk.catalog.dto.NewCombo;
+import vn.edu.ptit.kttk.catalog.dto.UpdatedCombo;
 import vn.edu.ptit.kttk.catalog.service.ComboService;
 
 import java.util.List;
@@ -22,5 +23,11 @@ public class ComboController {
     @GetMapping
     public List<ComboDTO> getAllCombos() {
         return comboService.getAllCombos();
+    }
+
+    @PutMapping("/{comboId}")
+    public void updateCombo(@ModelAttribute UpdatedCombo updatedCombo, @PathVariable Long comboId) {
+        updatedCombo.setId(comboId);
+        comboService.updateCombo(updatedCombo);
     }
 }

@@ -37,7 +37,7 @@ public class Food {
     @CreationTimestamp
     private LocalDateTime createdAt;
 
-    @OneToMany(mappedBy = FoodImage_.FOOD, cascade = { CascadeType.PERSIST, CascadeType.REMOVE })
+    @OneToMany(mappedBy = FoodImage_.FOOD, cascade = { CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE })
     private Set<FoodImage> images;
 
     public void addImage(String url) {
@@ -49,7 +49,6 @@ public class Food {
 
     public void merge(UpdatedFood updatedFood) {
         this.name = updatedFood.getName();
-        this.preview = updatedFood.getPreview();
         this.price = updatedFood.getPrice();
         this.description = updatedFood.getDescription();
         this.type = updatedFood.getType();

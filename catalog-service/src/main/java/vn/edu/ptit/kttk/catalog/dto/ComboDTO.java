@@ -23,6 +23,7 @@ public class ComboDTO {
         this.id = combo.getId();
         this.name = combo.getName();
         this.preview = combo.getPreview();
+        this.price = combo.getPrice();
         this.comboParts = combo.getComboParts().stream().map(ComboPartDTO::new).toList();
         this.createdAt = combo.getCreatedAt();
         this.images = combo.getImages().stream().map(Image::getUrl).toList();

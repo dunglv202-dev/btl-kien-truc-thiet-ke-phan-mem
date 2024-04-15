@@ -23,6 +23,7 @@ public class NewCombo {
         return Combo.builder()
             .name(this.name)
             .price(this.price)
+            .preview(this.preview)
             .images(new ArrayList<>())
             .build();
     }

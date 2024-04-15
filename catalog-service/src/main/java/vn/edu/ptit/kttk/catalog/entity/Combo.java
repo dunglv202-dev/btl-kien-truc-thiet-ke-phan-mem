@@ -6,6 +6,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import org.hibernate.annotations.CreationTimestamp;
+import vn.edu.ptit.kttk.catalog.dto.UpdatedCombo;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -25,8 +26,8 @@ public class Combo {
 
     private String preview;
 
-    @OneToMany(mappedBy = ComboPart_.COMBO, cascade = {CascadeType.PERSIST, CascadeType.REMOVE})
-    private Set<ComboPart> comboParts;
+    @OneToMany(mappedBy = ComboPart_.COMBO, cascade = {CascadeType.PERSIST, CascadeType.MERGE, CascadeType.REMOVE})
+    private List<ComboPart> comboParts;
 
     private Double price;
 
@@ -41,5 +42,10 @@ public class Combo {
         image.setUrl(url);
         image.setCombo(this);
         this.images.add(image);
+    }
+
+    public void merge(UpdatedCombo updatedCombo) {
+        this.name = updatedCombo.getName();
+        this.price = updatedCombo.getPrice();
     }
 }

@@ -60,26 +60,29 @@ public class FoodServiceImpl implements FoodService {
         // handle food info updates
         food.merge(updatedFood);
 
-        // validate preview url
-        if (isInvalidPreviewUrl(food, updatedFood.getAddedImages(), updatedFood.getPreview())) {
-            food.setPreview(null);
-        } else {
-            // remove from image gallery after set it as preview image
-            Optional<FoodImage> previewFromImageGallery = food.getImages()
-                .stream()
-                .filter(img -> img.getUrl().equals(updatedFood.getPreview()))
-                .findFirst();
+        removeFoodImages(food, updatedFood.getRemovedImages());
 
-            if (previewFromImageGallery.isPresent()) {
-                FoodImage previewImage = previewFromImageGallery.get();
-                foodImageRepository.delete(previewImage);
-                food.getImages().remove(previewImage);
+        if (!Objects.equals(food.getPreview(), updatedFood.getPreview())) {
+            // validate preview url
+            if (isInvalidPreviewUrl(food, updatedFood.getAddedImages(), updatedFood.getPreview())) {
+                food.setPreview(null);
+            } else {
+                // remove from image gallery after set it as preview image
+                Optional<FoodImage> previewFromImageGallery = food.getImages()
+                    .stream()
+                    .filter(img -> img.getUrl().equals(updatedFood.getPreview()))
+                    .findFirst();
+
+                if (previewFromImageGallery.isPresent()) {
+                    FoodImage previewImage = previewFromImageGallery.get();
+                    foodImageRepository.delete(previewImage);
+                    food.getImages().remove(previewImage);
+                }
             }
         }
 
         // handle food images updates
         addFoodImages(food, updatedFood.getAddedImages());
-        removeFoodImages(food, updatedFood.getRemovedImages());
 
         foodRepository.save(food);
     }
