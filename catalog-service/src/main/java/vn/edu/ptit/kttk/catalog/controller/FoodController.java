@@ -30,4 +30,9 @@ public class FoodController {
         updatedFood.setId(foodId);
         foodService.updateFood(updatedFood);
     }
+
+    @DeleteMapping("/{foodId}")
+    public void deleteFood(@PathVariable Long foodId) {
+        foodService.deleteFood(foodId);
+    }
 }

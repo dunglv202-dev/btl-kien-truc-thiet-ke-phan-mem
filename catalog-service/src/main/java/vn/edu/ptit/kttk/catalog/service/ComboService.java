@@ -11,4 +11,5 @@ public interface ComboService {
     void addNewCombo(@Valid NewCombo newCombo);
     List<ComboDTO> getAllCombos();
     void updateCombo(@Valid UpdatedCombo updatedCombo);
+    void deleteCombo(Long comboId);
 }

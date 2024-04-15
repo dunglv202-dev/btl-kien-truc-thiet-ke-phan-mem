@@ -6,11 +6,16 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.multipart.MultipartFile;
+import vn.edu.ptit.kttk.catalog.dto.ComboDTO;
 import vn.edu.ptit.kttk.catalog.dto.FoodDTO;
 import vn.edu.ptit.kttk.catalog.dto.NewFood;
 import vn.edu.ptit.kttk.catalog.dto.UpdatedFood;
+import vn.edu.ptit.kttk.catalog.entity.Combo;
+import vn.edu.ptit.kttk.catalog.entity.ComboPart;
 import vn.edu.ptit.kttk.catalog.entity.Food;
 import vn.edu.ptit.kttk.catalog.entity.FoodImage;
+import vn.edu.ptit.kttk.catalog.exception.FoodIncludedInCombosException;
+import vn.edu.ptit.kttk.catalog.repository.ComboPartRepository;
 import vn.edu.ptit.kttk.catalog.repository.FoodImageRepository;
 import vn.edu.ptit.kttk.catalog.repository.FoodRepository;
 import vn.edu.ptit.kttk.catalog.service.FoodService;
@@ -27,6 +32,7 @@ public class FoodServiceImpl implements FoodService {
     private final FoodRepository foodRepository;
     private final StorageService storageService;
     private final FoodImageRepository foodImageRepository;
+    private final ComboPartRepository comboPartRepository;
 
     @Override
     @Transactional
@@ -85,6 +91,23 @@ public class FoodServiceImpl implements FoodService {
         addFoodImages(food, updatedFood.getAddedImages());
 
         foodRepository.save(food);
+    }
+
+    @Override
+    public void deleteFood(Long foodId) {
+        Food food = foodRepository.findById(foodId)
+            .orElseThrow();
+
+        List<Combo> combosForThisFood = comboPartRepository.findByFood(food)
+            .stream()
+            .map(ComboPart::getCombo)
+            .toList();
+
+        if (!combosForThisFood.isEmpty()) {
+            throw new FoodIncludedInCombosException(combosForThisFood);
+        }
+
+        foodRepository.delete(food);
     }
 
     /**

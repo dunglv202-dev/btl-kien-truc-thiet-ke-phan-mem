@@ -11,4 +11,5 @@ public interface FoodService {
     void addNewFood(@Valid NewFood newFood);
     List<FoodDTO> getAllFoods();
     void updateFood(@Valid UpdatedFood updatedFood);
+    void deleteFood(Long foodId);
 }

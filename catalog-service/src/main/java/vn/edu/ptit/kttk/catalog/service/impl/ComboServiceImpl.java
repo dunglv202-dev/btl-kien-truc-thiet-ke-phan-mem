@@ -73,6 +73,13 @@ public class ComboServiceImpl implements ComboService {
         comboRepository.save(combo);
     }
 
+    @Override
+    public void deleteCombo(Long comboId) {
+        Combo combo = comboRepository.findById(comboId)
+            .orElseThrow();
+        comboRepository.delete(combo);
+    }
+
     private void updateComboBasicInfo(Combo combo, UpdatedCombo updatedCombo) {
         combo.merge(updatedCombo);
         removeComboImages(combo, updatedCombo.getRemovedImages());

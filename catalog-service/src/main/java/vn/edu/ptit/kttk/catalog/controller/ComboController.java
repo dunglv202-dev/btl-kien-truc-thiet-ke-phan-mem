@@ -30,4 +30,9 @@ public class ComboController {
         updatedCombo.setId(comboId);
         comboService.updateCombo(updatedCombo);
     }
+
+    @DeleteMapping("/{comboId}")
+    public void deleteCombo(@PathVariable Long comboId) {
+        comboService.deleteCombo(comboId);
+    }
 }
