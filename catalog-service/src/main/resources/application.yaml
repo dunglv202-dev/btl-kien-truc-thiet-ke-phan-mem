@@ -1,4 +1,6 @@
 spring:
+  profiles:
+    active: local
   application:
     name: catalog-service
   datasource:
@@ -10,9 +12,8 @@ spring:
     generate-ddl: true
     hibernate:
       ddl-auto: update
+  servlet:
+    multipart:
+      max-file-size: 10MB
 server:
   port: 8081
-eureka:
-  client:
-    serviceUrl:
-      defaultZone: http://${EUREKA_HOST}:{EUREKA_PORT}/eureka

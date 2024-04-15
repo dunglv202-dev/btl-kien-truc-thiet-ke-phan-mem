@@ -6,17 +6,16 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import vn.edu.ptit.kttk.catalog.dto.NewCombo;
-import vn.edu.ptit.kttk.catalog.dto.NewFood;
-import vn.edu.ptit.kttk.catalog.service.FoodService;
+import vn.edu.ptit.kttk.catalog.service.ComboService;
 
 @RestController
-@RequestMapping("/api/v1/foods")
+@RequestMapping("/api/v1/combos")
 @RequiredArgsConstructor
-public class FoodController {
-    private final FoodService foodService;
+public class ComboController {
+    private final ComboService comboService;
 
     @PostMapping
-    public void addNewFood(@ModelAttribute NewFood newFood) {
-        foodService.addNewFood(newFood);
+    public void addNewCombo(@ModelAttribute NewCombo newCombo) {
+        comboService.addNewCombo(newCombo);
     }
 }
