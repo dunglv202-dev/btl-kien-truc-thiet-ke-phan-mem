@@ -25,6 +25,11 @@ public class FoodController {
         return foodService.getAllFoods();
     }
 
+    @GetMapping("/{foodId}")
+    public FoodDTO getFood(@PathVariable Long foodId) {
+        return foodService.getFood(foodId);
+    }
+
     @PutMapping("/{foodId}")
     public void updateFood(@ModelAttribute UpdatedFood updatedFood, @PathVariable Long foodId) {
         updatedFood.setId(foodId);

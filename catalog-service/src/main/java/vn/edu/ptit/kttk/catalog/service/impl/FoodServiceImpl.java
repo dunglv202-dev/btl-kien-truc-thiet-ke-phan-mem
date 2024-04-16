@@ -110,6 +110,13 @@ public class FoodServiceImpl implements FoodService {
         foodRepository.delete(food);
     }
 
+    @Override
+    public FoodDTO getFood(Long foodId) {
+        Food food = foodRepository.findById(foodId)
+            .orElseThrow();
+        return new FoodDTO(food);
+    }
+
     /**
      * Is preview an existed images of food or newly added one
      */
