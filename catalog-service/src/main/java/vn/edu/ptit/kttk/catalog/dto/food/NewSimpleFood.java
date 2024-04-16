@@ -10,7 +10,7 @@ import java.util.List;
 
 @Getter
 @Setter
-public class NewFood {
+public class NewSimpleFood {
     private String name;
     private String description;
     private Double price;

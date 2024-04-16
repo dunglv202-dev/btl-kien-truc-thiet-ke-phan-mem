@@ -11,6 +11,6 @@ public class FileUtils {
         if (dotIndex < 0) {
             throw new RuntimeException("Invalid file");
         }
-        return name.substring(dotIndex, name.length() -1);
+        return name.substring(dotIndex);
     }
 }

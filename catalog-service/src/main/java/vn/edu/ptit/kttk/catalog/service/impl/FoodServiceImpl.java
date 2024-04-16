@@ -5,11 +5,13 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.annotation.Validated;
-import vn.edu.ptit.kttk.catalog.dto.food.NewFood;
+import vn.edu.ptit.kttk.catalog.dto.food.DetailSimpleFood;
+import vn.edu.ptit.kttk.catalog.dto.food.SimpleFoodDTO;
+import vn.edu.ptit.kttk.catalog.dto.food.NewSimpleFood;
 import vn.edu.ptit.kttk.catalog.entity.Image;
 import vn.edu.ptit.kttk.catalog.entity.SimpleFood;
-import vn.edu.ptit.kttk.catalog.repository.FoodRepository;
 import vn.edu.ptit.kttk.catalog.repository.ImageRepository;
+import vn.edu.ptit.kttk.catalog.repository.SimpleFoodRepository;
 import vn.edu.ptit.kttk.catalog.service.FoodService;
 import vn.edu.ptit.kttk.catalog.service.StorageService;
 
@@ -22,16 +24,16 @@ import java.util.List;
 public class FoodServiceImpl implements FoodService {
     private final StorageService storageService;
     private final ImageRepository imageRepository;
-    private final FoodRepository foodRepository;
+    private final SimpleFoodRepository foodRepository;
 
     @Override
     @Transactional
-    public void addFood(@Valid NewFood newFood) {
-        SimpleFood food = newFood.toEntity();
+    public void addFood(@Valid NewSimpleFood newSimpleFood) {
+        SimpleFood food = newSimpleFood.toEntity();
         List<Image> images = new ArrayList<>();
 
-        if (!newFood.getImages().isEmpty()) {
-            newFood.getImages().forEach(imgFile -> {
+        if (!newSimpleFood.getImages().isEmpty()) {
+            newSimpleFood.getImages().forEach(imgFile -> {
                 if (imgFile.isEmpty()) return;
 
                 String url = storageService.saveFile(imgFile);
@@ -48,5 +50,21 @@ public class FoodServiceImpl implements FoodService {
 
         foodRepository.save(food);
         imageRepository.saveAll(images);
+    }
+
+    @Override
+    public List<SimpleFoodDTO> getAllFoods() {
+        return foodRepository.findAll()
+            .stream()
+            .map(SimpleFoodDTO::new)
+            .toList();
+    }
+
+    @Override
+    public DetailSimpleFood getDetailFood(Long foodId) {
+        SimpleFood foundFood = foodRepository.findById(foodId)
+            .orElseThrow();
+
+        return new DetailSimpleFood(foundFood);
     }
 }
