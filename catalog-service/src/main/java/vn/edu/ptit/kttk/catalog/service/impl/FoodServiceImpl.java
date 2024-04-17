@@ -7,10 +7,9 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.multipart.MultipartFile;
 import vn.edu.ptit.kttk.catalog.dto.food.DetailSimpleFood;
-import vn.edu.ptit.kttk.catalog.dto.food.SimpleFoodDTO;
 import vn.edu.ptit.kttk.catalog.dto.food.NewSimpleFood;
+import vn.edu.ptit.kttk.catalog.dto.food.SimpleFoodDTO;
 import vn.edu.ptit.kttk.catalog.dto.food.SimpleFoodUpdate;
-import vn.edu.ptit.kttk.catalog.entity.Food;
 import vn.edu.ptit.kttk.catalog.entity.Image;
 import vn.edu.ptit.kttk.catalog.entity.SimpleFood;
 import vn.edu.ptit.kttk.catalog.repository.ImageRepository;
@@ -86,6 +85,16 @@ public class FoodServiceImpl implements FoodService {
         }
     }
 
+    @Override
+    @Transactional
+    public void deleteFood(Long foodId) {
+        SimpleFood food = foodRepository.findById(foodId)
+                .orElseThrow();
+        removeImages(food.getImages());
+        storageService.deleteFile(food.getPreview());
+        foodRepository.delete(food);
+    }
+
     private boolean isPreviewInUploadedImages(SimpleFoodUpdate foodUpdate) {
         return foodUpdate.getAddedImages() != null && foodUpdate.getAddedImages()
             .stream()
@@ -93,12 +102,16 @@ public class FoodServiceImpl implements FoodService {
             .anyMatch(fileName -> fileName != null && fileName.equals(foodUpdate.getPreview()));
     }
 
-    private void removeImages(SimpleFood food, List<Long> removedImageIds) {
-        List<Image> removed = imageRepository.findAllByIdInAndFood(removedImageIds, food);
+    private void removeImages(List<Image> removed) {
         imageRepository.deleteAllInBatch(removed);
         removed.forEach(img -> {
             storageService.deleteFile(img.getUrl());
         });
+    }
+
+    private void removeImages(SimpleFood food, List<Long> removedImageIds) {
+        List<Image> removed = imageRepository.findAllByIdInAndFood(removedImageIds, food);
+        removeImages(removed);
     }
 
     private void addImages(SimpleFood food, List<MultipartFile> added) {

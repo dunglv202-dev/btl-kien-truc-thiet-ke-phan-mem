@@ -4,7 +4,6 @@ import lombok.Getter;
 import lombok.Setter;
 import vn.edu.ptit.kttk.catalog.constant.DishType;
 import vn.edu.ptit.kttk.catalog.dto.ImageDTO;
-import vn.edu.ptit.kttk.catalog.entity.Image;
 import vn.edu.ptit.kttk.catalog.entity.SimpleFood;
 
 import java.util.List;
