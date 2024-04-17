@@ -13,4 +13,9 @@ public class OnDeviceStorageService implements StorageService {
     public String saveFile(MultipartFile file) {
         return "/" + UUID.randomUUID() + FileUtils.getFileExtension(file);
     }
+
+    @Override
+    public void deleteFile(String path) {
+
+    }
 }

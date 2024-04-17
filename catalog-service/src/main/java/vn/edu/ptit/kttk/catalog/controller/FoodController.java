@@ -5,6 +5,7 @@ import org.springframework.web.bind.annotation.*;
 import vn.edu.ptit.kttk.catalog.dto.food.DetailSimpleFood;
 import vn.edu.ptit.kttk.catalog.dto.food.SimpleFoodDTO;
 import vn.edu.ptit.kttk.catalog.dto.food.NewSimpleFood;
+import vn.edu.ptit.kttk.catalog.dto.food.SimpleFoodUpdate;
 import vn.edu.ptit.kttk.catalog.service.FoodService;
 
 import java.util.List;
@@ -28,5 +29,11 @@ public class FoodController {
     @GetMapping("/{foodId}")
     public DetailSimpleFood getDetailFood(@PathVariable Long foodId) {
         return foodService.getDetailFood(foodId);
+    }
+
+    @PutMapping("/{foodId}")
+    public void updateFood(@PathVariable Long foodId, @ModelAttribute SimpleFoodUpdate foodUpdate) {
+        foodUpdate.setId(foodId);
+        foodService.updateFood(foodUpdate);
     }
 }

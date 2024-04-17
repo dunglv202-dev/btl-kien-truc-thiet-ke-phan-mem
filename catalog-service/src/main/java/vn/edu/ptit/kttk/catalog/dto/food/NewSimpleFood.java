@@ -15,14 +15,14 @@ public class NewSimpleFood {
     private String description;
     private Double price;
     private List<MultipartFile> images;
-    private DishType type;
+    private DishType dishType;
 
     public SimpleFood toEntity() {
         SimpleFood simpleFood =  new SimpleFood();
         simpleFood.setName(this.name);
         simpleFood.setDescription(this.description);
         simpleFood.setPrice(this.price);
-        simpleFood.setDishType(this.type);
+        simpleFood.setDishType(this.dishType);
 
         return simpleFood;
     }

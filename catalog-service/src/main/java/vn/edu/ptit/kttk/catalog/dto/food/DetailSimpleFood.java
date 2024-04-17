@@ -3,6 +3,7 @@ package vn.edu.ptit.kttk.catalog.dto.food;
 import lombok.Getter;
 import lombok.Setter;
 import vn.edu.ptit.kttk.catalog.constant.DishType;
+import vn.edu.ptit.kttk.catalog.dto.ImageDTO;
 import vn.edu.ptit.kttk.catalog.entity.Image;
 import vn.edu.ptit.kttk.catalog.entity.SimpleFood;
 
@@ -17,7 +18,7 @@ public class DetailSimpleFood {
     private String description;
     private Double price;
     private DishType dishType;
-    private List<String> images;
+    private List<ImageDTO> images;
 
     public DetailSimpleFood(SimpleFood food) {
         this.id = food.getId();
@@ -26,6 +27,6 @@ public class DetailSimpleFood {
         this.description = food.getDescription();
         this.price = food.getPrice();
         this.dishType = food.getDishType();
-        this.images = food.getImages().stream().map(Image::getUrl).toList();
+        this.images = food.getImages().stream().map(ImageDTO::new).toList();
     }
 }

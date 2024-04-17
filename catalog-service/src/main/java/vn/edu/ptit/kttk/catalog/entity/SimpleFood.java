@@ -7,6 +7,7 @@ import jakarta.persistence.Enumerated;
 import lombok.Getter;
 import lombok.Setter;
 import vn.edu.ptit.kttk.catalog.constant.DishType;
+import vn.edu.ptit.kttk.catalog.dto.food.SimpleFoodUpdate;
 
 @Entity
 @Getter
@@ -15,4 +16,11 @@ import vn.edu.ptit.kttk.catalog.constant.DishType;
 public class SimpleFood extends Food {
     @Enumerated(EnumType.STRING)
     private DishType dishType;
+
+    public void mergeWithUpdates(SimpleFoodUpdate update) {
+        this.name = update.getName();
+        this.description = update.getDescription();
+        this.price = update.getPrice();
+        this.dishType = update.getDishType();
+    }
 }
