@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.Setter;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
+import vn.edu.ptit.kttk.catalog.dto.FoodUpdate;
 
 import java.time.LocalDateTime;
 import java.util.List;
@@ -35,4 +36,10 @@ public abstract class Food {
 
     @UpdateTimestamp
     protected LocalDateTime updatedAt;
+
+    protected void mergeWithUpdates(FoodUpdate update) {
+        this.name = update.getName();
+        this.description = update.getDescription();
+        this.price = update.getPrice();
+    }
 }

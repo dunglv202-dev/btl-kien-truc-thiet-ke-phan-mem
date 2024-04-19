@@ -5,6 +5,8 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.OneToMany;
 import lombok.Getter;
 import lombok.Setter;
+import vn.edu.ptit.kttk.catalog.dto.FoodUpdate;
+import vn.edu.ptit.kttk.catalog.dto.combo.ComboUpdate;
 
 import java.util.List;
 import java.util.Objects;
@@ -21,5 +23,9 @@ public class Combo extends Food {
         return this.parts
             .stream()
             .anyMatch(part -> Objects.equals(part.getFood().getId(), food.getId()));
+    }
+
+    public void mergeWithUpdates(ComboUpdate update) {
+        super.mergeWithUpdates(update);
     }
 }

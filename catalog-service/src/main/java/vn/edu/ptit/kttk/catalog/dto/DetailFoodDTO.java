@@ -8,7 +8,7 @@ import java.util.List;
 
 @Getter
 @Setter
-public class DetailFoodDTO extends FoodDTO {
+public abstract class DetailFoodDTO extends FoodDTO {
     protected List<ImageDTO> images;
 
     public DetailFoodDTO(Food food) {

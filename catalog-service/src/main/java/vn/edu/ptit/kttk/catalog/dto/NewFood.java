@@ -9,7 +9,7 @@ import java.util.List;
 
 @Getter
 @Setter
-public abstract class AbstractNewFood {
+public abstract class NewFood {
     protected String name;
     protected String description;
     protected Double price;

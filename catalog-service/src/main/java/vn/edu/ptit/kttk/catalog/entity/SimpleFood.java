@@ -18,9 +18,7 @@ public class SimpleFood extends Food {
     private DishType dishType;
 
     public void mergeWithUpdates(SimpleFoodUpdate update) {
-        this.name = update.getName();
-        this.description = update.getDescription();
-        this.price = update.getPrice();
+        super.mergeWithUpdates(update);
         this.dishType = update.getDishType();
     }
 }

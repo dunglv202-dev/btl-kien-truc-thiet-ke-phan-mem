@@ -2,20 +2,11 @@ package vn.edu.ptit.kttk.catalog.dto.food;
 
 import lombok.Getter;
 import lombok.Setter;
-import org.springframework.web.multipart.MultipartFile;
 import vn.edu.ptit.kttk.catalog.constant.DishType;
-
-import java.util.List;
+import vn.edu.ptit.kttk.catalog.dto.FoodUpdate;
 
 @Getter
 @Setter
-public class SimpleFoodUpdate {
-    private Long id;
-    private String name;
-    private String preview;
-    private String description;
-    private Double price;
+public class SimpleFoodUpdate extends FoodUpdate {
     private DishType dishType;
-    private List<Long> removedImageIds;
-    private List<MultipartFile> addedImages;
 }
