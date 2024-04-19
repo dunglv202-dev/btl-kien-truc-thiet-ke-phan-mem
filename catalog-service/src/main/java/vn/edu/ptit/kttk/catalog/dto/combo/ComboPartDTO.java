@@ -6,6 +6,6 @@ import lombok.Setter;
 @Getter
 @Setter
 public class ComboPartDTO {
-    private Long foodId;
-    private Integer quantity;
+    protected Long foodId;
+    protected Integer quantity;
 }

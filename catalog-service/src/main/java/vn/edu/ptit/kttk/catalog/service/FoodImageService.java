@@ -2,7 +2,6 @@ package vn.edu.ptit.kttk.catalog.service;
 
 import org.springframework.web.multipart.MultipartFile;
 import vn.edu.ptit.kttk.catalog.entity.Food;
-import vn.edu.ptit.kttk.catalog.entity.SimpleFood;
 
 import java.util.List;
 

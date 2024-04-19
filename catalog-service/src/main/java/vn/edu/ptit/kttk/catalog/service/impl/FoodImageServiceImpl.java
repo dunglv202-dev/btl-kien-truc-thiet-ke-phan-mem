@@ -5,7 +5,6 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
 import vn.edu.ptit.kttk.catalog.entity.Food;
 import vn.edu.ptit.kttk.catalog.entity.Image;
-import vn.edu.ptit.kttk.catalog.entity.SimpleFood;
 import vn.edu.ptit.kttk.catalog.repository.ImageRepository;
 import vn.edu.ptit.kttk.catalog.service.FoodImageService;
 import vn.edu.ptit.kttk.catalog.service.StorageService;
