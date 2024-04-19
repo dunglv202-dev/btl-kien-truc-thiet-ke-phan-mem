@@ -2,8 +2,8 @@ package vn.edu.ptit.kttk.catalog.service;
 
 import jakarta.validation.Valid;
 import vn.edu.ptit.kttk.catalog.dto.food.DetailSimpleFood;
-import vn.edu.ptit.kttk.catalog.dto.food.SimpleFoodDTO;
 import vn.edu.ptit.kttk.catalog.dto.food.NewSimpleFood;
+import vn.edu.ptit.kttk.catalog.dto.food.SimpleFoodDTO;
 import vn.edu.ptit.kttk.catalog.dto.food.SimpleFoodUpdate;
 
 import java.util.List;

@@ -7,18 +7,17 @@ import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.multipart.MultipartFile;
 import vn.edu.ptit.kttk.catalog.dto.food.DetailSimpleFood;
-import vn.edu.ptit.kttk.catalog.dto.food.SimpleFoodDTO;
 import vn.edu.ptit.kttk.catalog.dto.food.NewSimpleFood;
+import vn.edu.ptit.kttk.catalog.dto.food.SimpleFoodDTO;
 import vn.edu.ptit.kttk.catalog.dto.food.SimpleFoodUpdate;
-import vn.edu.ptit.kttk.catalog.entity.Food;
 import vn.edu.ptit.kttk.catalog.entity.Image;
 import vn.edu.ptit.kttk.catalog.entity.SimpleFood;
 import vn.edu.ptit.kttk.catalog.repository.ImageRepository;
 import vn.edu.ptit.kttk.catalog.repository.SimpleFoodRepository;
+import vn.edu.ptit.kttk.catalog.service.FoodImageService;
 import vn.edu.ptit.kttk.catalog.service.FoodService;
 import vn.edu.ptit.kttk.catalog.service.StorageService;
 
-import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
 
@@ -26,6 +25,7 @@ import java.util.Optional;
 @Validated
 @RequiredArgsConstructor
 public class FoodServiceImpl implements FoodService {
+    private final FoodImageService foodImageService;
     private final StorageService storageService;
     private final ImageRepository imageRepository;
     private final SimpleFoodRepository foodRepository;
@@ -36,7 +36,7 @@ public class FoodServiceImpl implements FoodService {
         SimpleFood food = newSimpleFood.toEntity();
         foodRepository.save(food);
         if (newSimpleFood.getImages() != null && !newSimpleFood.getImages().isEmpty()) {
-            addImages(food, newSimpleFood.getImages());
+            foodImageService.addImages(food, newSimpleFood.getImages());
         }
     }
 
@@ -82,7 +82,7 @@ public class FoodServiceImpl implements FoodService {
             removeImages(food, foodUpdate.getRemovedImageIds());
         }
         if (foodUpdate.getAddedImages() != null) {
-            addImages(food, foodUpdate.getAddedImages());
+            foodImageService.addImages(food, foodUpdate.getAddedImages());
         }
     }
 
@@ -99,25 +99,5 @@ public class FoodServiceImpl implements FoodService {
         removed.forEach(img -> {
             storageService.deleteFile(img.getUrl());
         });
-    }
-
-    private void addImages(SimpleFood food, List<MultipartFile> added) {
-        List<Image> images = new ArrayList<>();
-
-        added.forEach(imgFile -> {
-            if (imgFile.isEmpty()) return;
-
-            String url = storageService.saveFile(imgFile);
-            if (food.getPreview() == null || food.getPreview().equals(imgFile.getOriginalFilename())) {
-                food.setPreview(url);
-            } else {
-                Image image = new Image();
-                image.setUrl(url);
-                image.setFood(food);
-                images.add(image);
-            }
-        });
-
-        imageRepository.saveAll(images);
     }
 }
