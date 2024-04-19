@@ -86,6 +86,16 @@ public class FoodServiceImpl implements FoodService {
         }
     }
 
+    @Override
+    @Transactional
+    public void deleteFood(Long foodId) {
+        SimpleFood food = foodRepository.findById(foodId)
+                .orElseThrow();
+        removeImages(food.getImages());
+        storageService.deleteFile(food.getPreview());
+        foodRepository.delete(food);
+    }
+
     private boolean isPreviewInUploadedImages(SimpleFoodUpdate foodUpdate) {
         return foodUpdate.getAddedImages() != null && foodUpdate.getAddedImages()
             .stream()
@@ -93,11 +103,15 @@ public class FoodServiceImpl implements FoodService {
             .anyMatch(fileName -> fileName != null && fileName.equals(foodUpdate.getPreview()));
     }
 
-    private void removeImages(SimpleFood food, List<Long> removedImageIds) {
-        List<Image> removed = imageRepository.findAllByIdInAndFood(removedImageIds, food);
+    private void removeImages(List<Image> removed) {
         imageRepository.deleteAllInBatch(removed);
         removed.forEach(img -> {
             storageService.deleteFile(img.getUrl());
         });
+    }
+
+    private void removeImages(SimpleFood food, List<Long> removedImageIds) {
+        List<Image> removed = imageRepository.findAllByIdInAndFood(removedImageIds, food);
+        removeImages(removed);
     }
 }
