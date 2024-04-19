@@ -6,10 +6,10 @@ import vn.edu.ptit.kttk.catalog.entity.ComboPart;
 
 @Getter
 @Setter
-public class ExtendedComboPartDTO extends ComboPartDTO {
+public class ExtendedComboPart extends ComboPartDTO {
     private String foodName;
 
-    public ExtendedComboPartDTO(ComboPart comboPart) {
+    public ExtendedComboPart(ComboPart comboPart) {
         this.foodId = comboPart.getFood().getId();
         this.quantity = comboPart.getQuantity();
         this.foodName = comboPart.getFood().getName();
