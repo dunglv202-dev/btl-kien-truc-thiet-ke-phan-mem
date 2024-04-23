@@ -32,8 +32,8 @@ public class FoodServiceImpl implements FoodService {
     public void addFood(@Valid NewSimpleFood newSimpleFood) {
         SimpleFood food = newSimpleFood.toEntity();
         foodRepository.save(food);
-        if (newSimpleFood.getImages() != null && !newSimpleFood.getImages().isEmpty()) {
-            foodImageService.addImages(food, newSimpleFood.getImages());
+        if (newSimpleFood.getAddedImages() != null && !newSimpleFood.getAddedImages().isEmpty()) {
+            foodImageService.addImages(food, newSimpleFood.getAddedImages());
         }
     }
 

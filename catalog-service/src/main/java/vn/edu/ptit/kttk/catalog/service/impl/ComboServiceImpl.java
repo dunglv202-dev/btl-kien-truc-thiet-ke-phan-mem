@@ -46,7 +46,7 @@ public class ComboServiceImpl implements ComboService {
             }
         });
 
-        foodImageService.addImages(combo, newCombo.getImages());
+        foodImageService.addImages(combo, newCombo.getAddedImages());
 
         comboRepository.save(combo);
         comboPartRepository.saveAll(combo.getParts());

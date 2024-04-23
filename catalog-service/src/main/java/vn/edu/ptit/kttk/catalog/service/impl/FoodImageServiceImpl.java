@@ -45,17 +45,25 @@ public class FoodImageServiceImpl implements FoodImageService {
 
     public void updateImagesAndPreview(Food food, FoodUpdate foodUpdate) {
         if (!isPreviewInUploadedImages(foodUpdate)) {
-            Optional<Image> image = food.getImages()
-                .stream()
-                .filter(img -> img.getUrl().equals(foodUpdate.getPreview()))
-                .findFirst();
+            if (foodUpdate.getPreview() == null) {
+                if (!food.getImages().isEmpty()) {
+                    Image image = food.getImages().get(0);
+                    food.setPreview(image.getUrl());
+                    imageRepository.delete(image);
+                }
+            } else {
+                Optional<Image> image = food.getImages()
+                    .stream()
+                    .filter(img -> img.getUrl().equals(foodUpdate.getPreview()))
+                    .findFirst();
 
-            if (image.isPresent()) {
-                // update preview && remove from image gallery
-                food.setPreview(foodUpdate.getPreview());
-                removeImages(food, List.of(image.get().getId()));
-            } else if (!Objects.equals(foodUpdate.getPreview(), food.getPreview())) {
-                throw new RuntimeException("Invalid preview");
+                if (image.isPresent()) {
+                    // update preview && remove from image gallery
+                    food.setPreview(foodUpdate.getPreview());
+                    removeImages(food, List.of(image.get().getId()));
+                } else if (!Objects.equals(foodUpdate.getPreview(), food.getPreview())) {
+                    throw new RuntimeException("Invalid preview");
+                }
             }
         }
         if (foodUpdate.getRemovedImageIds() != null) {

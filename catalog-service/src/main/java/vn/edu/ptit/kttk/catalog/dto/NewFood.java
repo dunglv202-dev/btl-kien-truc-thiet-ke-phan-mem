@@ -13,7 +13,7 @@ public abstract class NewFood {
     protected String name;
     protected String description;
     protected Double price;
-    protected List<MultipartFile> images;
+    protected List<MultipartFile> addedImages;
 
     public <T extends Food> void fillAttributes(T t) {
         t.setName(this.name);
