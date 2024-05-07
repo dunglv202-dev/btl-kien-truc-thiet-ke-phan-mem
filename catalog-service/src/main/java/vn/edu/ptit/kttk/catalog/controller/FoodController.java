@@ -2,10 +2,7 @@ package vn.edu.ptit.kttk.catalog.controller;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
-import vn.edu.ptit.kttk.catalog.dto.food.DetailSimpleFood;
-import vn.edu.ptit.kttk.catalog.dto.food.NewSimpleFood;
-import vn.edu.ptit.kttk.catalog.dto.food.SimpleFoodDTO;
-import vn.edu.ptit.kttk.catalog.dto.food.SimpleFoodUpdate;
+import vn.edu.ptit.kttk.catalog.dto.food.*;
 import vn.edu.ptit.kttk.catalog.service.FoodService;
 
 import java.util.List;
@@ -22,8 +19,8 @@ public class FoodController {
     }
 
     @GetMapping
-    public List<SimpleFoodDTO> getAllFoods() {
-        return foodService.getAllFoods();
+    public List<SimpleFoodDTO> getAllFoods(FoodFilter foodFilter) {
+        return foodService.getAllFoods(foodFilter);
     }
 
     @GetMapping("/{foodId}")

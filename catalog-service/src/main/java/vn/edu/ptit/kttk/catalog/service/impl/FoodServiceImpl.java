@@ -5,10 +5,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.validation.annotation.Validated;
-import vn.edu.ptit.kttk.catalog.dto.food.DetailSimpleFood;
-import vn.edu.ptit.kttk.catalog.dto.food.NewSimpleFood;
-import vn.edu.ptit.kttk.catalog.dto.food.SimpleFoodDTO;
-import vn.edu.ptit.kttk.catalog.dto.food.SimpleFoodUpdate;
+import vn.edu.ptit.kttk.catalog.dto.food.*;
 import vn.edu.ptit.kttk.catalog.entity.SimpleFood;
 import vn.edu.ptit.kttk.catalog.repository.ImageRepository;
 import vn.edu.ptit.kttk.catalog.repository.SimpleFoodRepository;
@@ -38,8 +35,8 @@ public class FoodServiceImpl implements FoodService {
     }
 
     @Override
-    public List<SimpleFoodDTO> getAllFoods() {
-        return foodRepository.findAll()
+    public List<SimpleFoodDTO> getAllFoods(FoodFilter foodFilter) {
+        return foodRepository.findAll(foodFilter.toSpecification())
             .stream()
             .map(SimpleFoodDTO::new)
             .toList();
