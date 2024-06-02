@@ -12,6 +12,9 @@ spring:
     generate-ddl: true
     hibernate:
       ddl-auto: update
+    properties:
+      hibernate:
+        globally_quoted_identifiers: true
   servlet:
     multipart:
       max-file-size: 20MB
